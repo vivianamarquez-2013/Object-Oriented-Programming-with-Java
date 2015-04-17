@@ -1,0 +1,58 @@
+/// MAIN
+
+public class Main {
+
+    public static void main(String[] args) {
+        
+    }
+    
+}
+
+/// INTERFACE NationalService
+
+public interface NationalService {
+    
+    int getDaysLeft();
+    void work();
+    
+}
+
+/// CLASS MilitaryService
+
+public class MilitaryService implements NationalService {
+
+    int daysLeft;
+    
+    public MilitaryService(int daysLeft){
+        this.daysLeft=daysLeft;
+    }
+
+    public int getDaysLeft() {
+        return daysLeft;
+    }
+    
+    public void work(){
+        
+    }
+    
+}
+
+/// CLASS CivilService
+
+public class CivilService implements NationalService {
+    
+    int daysLeft;
+    
+    public CivilService(){
+        this.daysLeft=362;
+    }
+    
+     public int getDaysLeft() {
+        return daysLeft;
+    }
+    
+    public void work(){
+        
+    }
+    
+}
