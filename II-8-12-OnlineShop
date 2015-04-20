@@ -3,7 +3,7 @@ Exercise 12: Online Shop
 Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-8?noredirect=1#e12
 */
 
-//MAIN
+///MAIN
 
 package pkg041715_onlineshop;
 
@@ -94,7 +94,7 @@ public class Main {
 }
 
 
-//PURCHASE
+/// CLASS Purchase
 
 package pkg041715_onlineshop;
 
@@ -136,7 +136,7 @@ public class Purchase {
 }
 
 
-//SHOP
+/// CLASS Shop
 
 package pkg041715_onlineshop;
 
@@ -189,7 +189,7 @@ public class Shop {
     }
 }
 
-//SHOPPING BASKET
+///CLASS ShoppingBasket
 
 package pkg041715_onlineshop;
 
@@ -254,7 +254,7 @@ public class ShoppingBasket {
     }
 }
 
-//STORE HOUSE
+///CLASS Storehouse
 
 package pkg041715_onlineshop;
 
