@@ -1,0 +1,228 @@
+/*
+Exercise 11: Boxes and Things
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-8?noredirect=1#e11
+*/
+
+/// MAIN
+
+package pkg041515_boxesandthings;
+
+public class Main {
+
+    public static void main(String[] args) {
+        
+        /*
+        Book book1 = new Book("Fedor Dostojevski", "Crime and Punishment", 2);
+        Book book2 = new Book("Robert Martin", "Clean Code", 1);
+        Book book3 = new Book("Kent Beck", "Test Driven Development", 0.5);
+
+        CD cd1 = new CD("Pink Floyd", "Dark Side of the Moon", 1973);
+        CD cd2 = new CD("Wigwam", "Nuclear Nightclub", 1975);
+        CD cd3 = new CD("Rendezvous Park", "Closer to Being Here", 2012);
+
+        System.out.println(book1);
+        System.out.println(book2);
+        System.out.println(book3);
+        System.out.println(cd1);
+        System.out.println(cd2);
+        System.out.println(cd3);
+        
+        System.out.println("");
+        */
+        
+        Box box = new Box(10);
+
+        box.add( new Book("Fedor Dostojevski", "Crime and Punishment", 2) ) ;
+        box.add( new Book("Robert Martin", "Clean Code", 1) );
+        box.add( new Book("Kent Beck", "Test Driven Development", 0.7) );
+
+        box.add( new CD("Pink Floyd", "Dark Side of the Moon", 1973) );
+        box.add( new CD("Wigwam", "Nuclear Nightclub", 1975) );
+        box.add( new CD("Rendezvous Park", "Closer to Being Here", 2012) );
+
+        System.out.println( box );
+        
+        Box box2 = new Box(9);
+        
+        box2.add(box);
+        box2.add(box);
+        
+        System.out.println(box2);
+        
+        Box box3 = new Box(8);
+        
+        box3.add(box3);
+        
+        System.out.println(box3);
+    }
+    
+}
+
+/// CLASS Book
+
+package pkg041515_boxesandthings;
+
+public class Book implements ToBeStored{
+
+    private String writer;
+    private String name;
+    private double weight;
+    
+    public Book(String writer, String name, double weight){
+        
+        this.writer=writer;
+        this.name=name;
+        this.weight=weight;
+        
+    }
+    
+    public double weight(){
+        return this.weight;
+    }
+    
+    public String toString(){
+        
+        String s="";
+        s=s+this.writer+": ";
+        s=s+this.name;
+        
+        return s;
+        
+    }
+    
+}
+
+/// CLASS Box
+
+package pkg041515_boxesandthings;
+
+import java.util.ArrayList;
+
+public class Box implements ToBeStored {
+
+    private double maxWeight;
+    private double weight;
+    private ArrayList<ToBeStored> list = new ArrayList<ToBeStored>();
+    
+    public Box(int maxWeight){
+        this.maxWeight=maxWeight;
+        this.weight=0;
+    }
+    
+    public void add(ToBeStored e){
+ 
+        
+        if((weight+e.weight())<maxWeight){
+            weight=weight+e.weight();
+            list.add(e);
+        }else{
+            System.out.println(e+" can't be added to this box.");
+        }
+        
+    }
+    
+    /*
+    //Es la forma correcta de agregar? 
+    public void add(Book book){
+ 
+        
+        if((weight+book.weight())<maxWeight){
+            weight=weight+book.weight();
+            list.add(book);
+        }else{
+            System.out.println(book+" can't be added to this box.");
+        }
+        
+    }
+    
+    public void add(CD cd){
+        
+        if((weight+cd.weight())<maxWeight){
+            weight=weight+cd.weight();
+            list.add(cd);
+        }else{
+            System.out.println(cd+" can't be added to this box.");
+        }
+        
+    }
+    
+    public void add(Box box){
+        
+        if((weight+box.weight())<maxWeight){
+            weight=weight+box.weight();
+            list.add(box);
+        }else{
+            System.out.println(box+" can't be added to this box.");
+        }
+        
+    }*/
+    
+    public String toString(){
+        
+        String s="Box: "+list.size()+" things, total weight "+weight+" kg";
+      
+        return s;
+        
+    }
+    
+    //No puedo coger del for el peso.
+    public double weight(){
+        
+        
+        double weight = 0;
+        // it calculates the total weight of the things which had been stored
+        
+        for (ToBeStored e: list){
+            weight=weight+e.weight();
+        }
+        
+        return weight;
+    }
+
+    
+    
+}
+
+
+/// CLASS CD
+
+package pkg041515_boxesandthings;
+
+public class CD implements ToBeStored {
+
+    private String artist;
+    private String title;
+    private int publishingYear;
+    
+    public CD(String artist, String title, int publishingYear){
+        this.artist=artist;
+        this.title=title;
+        this.publishingYear=publishingYear;
+    }
+    
+    public double weight(){
+        return 0.1;
+    }
+    
+    public String toString(){
+        
+        String s="";
+        s=s+this.artist+": ";
+        s=s+this.title+" (";
+        s=s+this.publishingYear+")";
+        
+        return s;
+        
+    }
+    
+}
+
+/// I NTERFACE ToBeStored
+
+package pkg041515_boxesandthings;
+
+public interface ToBeStored {
+    
+    double weight();
+    
+}
