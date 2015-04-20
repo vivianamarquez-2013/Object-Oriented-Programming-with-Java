@@ -171,7 +171,8 @@ public class Shop {
                 break;
             }
 
-            if (store.stocks.get(product) > 0) {
+            //Principio de encasulapción.
+            if (store.getStocks().get(product) > 0) {
                 store.take(product);
                 basket.add(product, store.price(product));
             } else {
@@ -263,8 +264,9 @@ import java.util.Set;
 
 public class Storehouse {
 
-    HashMap<String, Integer> prices = new HashMap<String, Integer>();
-    HashMap<String, Integer> stocks = new HashMap<String, Integer>();
+   //Principio de encasulapción.
+    private HashMap<String, Integer> prices = new HashMap<String, Integer>();
+    private HashMap<String, Integer> stocks = new HashMap<String, Integer>();
 
     public void addProduct(String product, int price, int stock) {
         prices.put(product, price);
