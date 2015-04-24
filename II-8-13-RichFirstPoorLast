@@ -1,0 +1,75 @@
+/*
+Excersie 13: Rich First, Poor Last
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-8?noredirect=1#e13
+*/
+
+/// MAIN
+
+
+package pkg042415_richfirstpoorlast;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+       
+          List<Person> people = new ArrayList<Person>();
+          people.add(new Person("Arnold", 1000));
+          people.add(new Person("Pedro", 520));
+          people.add(new Person("Pepito", 800));
+          
+          System.out.println(people);
+          Collections.sort(people);
+          System.out.println(people);
+        
+    }
+    
+}
+
+
+/// CLASS Person
+
+package pkg042415_richfirstpoorlast;
+
+public class Person implements Comparable<Person>{
+    
+    private String name;
+    private int salary;
+    
+    public Person (String name, int salary){
+        this.name=name;
+        this.salary=salary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+    
+    public String toString(){
+        return this.getName()+" "+this.getSalary();
+    }
+    
+    public int compareTo(Person person){
+        if(this.salary == person.getSalary()){
+            return 0;
+        }else if (this.salary>person.getSalary()){
+            return -1;
+        }else{
+            return 1;
+        }
+    }
+    
+//    public int compareTo(Person person){
+//        return this.salary-person.getSalary();
+//    }
+ 
+}
+
+
