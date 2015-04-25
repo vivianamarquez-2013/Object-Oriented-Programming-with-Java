@@ -1,0 +1,79 @@
+/*
+Excercise 14: Studets sorted by name.
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-8?noredirect=1#e14
+*/
+
+///MAIN
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+
+
+public class Main {
+
+   
+    public static void main(String[] args) {
+        
+
+        List <Student> students = new ArrayList <Student>();
+        
+        Student l = new Student("Laura");
+        Student r = new Student("Ricardo");
+        Student a = new Student("Alejandra");
+        Student v = new Student("Viviana");
+        Student c = new Student("Camilo");
+        
+        students.add(l);
+        students.add(r);
+        students.add(a);
+        students.add(v);
+        students.add(c);
+       
+        
+        System.out.println(students);
+        Collections.sort(students);
+        System.out.println(students);
+        
+        
+    }
+    
+}
+
+/// CLASS Student
+
+public class Student implements Comparable<Student>{
+
+    String name;
+    
+    public Student(String name){
+        this.name=name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String toString(){
+        return this.name;
+    }
+    
+    public int compareTo(Student student){
+        if(this.name.equalsIgnoreCase(student.getName())){
+            return 0;
+        }else if (this.name.compareToIgnoreCase(student.getName())>0){
+            return 1;
+        }else{
+            return -1;
+        }
+    }
+    
+    
+}
