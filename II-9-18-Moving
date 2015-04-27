@@ -1,0 +1,209 @@
+/*
+Excersice 18: Moving.
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-9?noredirect=1#e18
+*/
+
+//// PACKAGE moving
+/// MAIN
+
+package moving;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import moving.domain.Box;
+import moving.domain.Item;
+import moving.domain.Thing;
+import moving.logic.Packer;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        /*
+         //        Thing item = new Item("toothbrash", 2);
+         //        System.out.println(item);
+         List<Item> items = new ArrayList<Item>();
+         items.add(new Item("passport", 2));
+         items.add(new Item("toothbrash", 1));
+         items.add(new Item("circular saw", 100));
+
+         Collections.sort(items);
+         System.out.println(items);
+         */
+        // the things we want to pack
+        List<Thing> things = new ArrayList<Thing>();
+        things.add(new Item("passport", 2));
+        things.add(new Item("toothbrash", 1));
+        things.add(new Item("book", 4));
+        things.add(new Item("circular saw", 8));
+
+        // we create a packer which uses boxes whose valume is 10
+        Packer packer = new Packer(10);
+
+        // we ask our packer to pack things into boxes
+        List<Box> boxes = packer.packThings(things);
+
+        System.out.println("number of boxes: " + boxes.size());
+
+        for (Box box : boxes) {
+            System.out.println("  things in the box: " + box.getVolume() + " dm^3");
+        }
+
+    }
+
+}
+
+
+//// PACKAGE moving.domain
+/// CLASS Box
+
+package moving.domain;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author vivianamarquez
+ *
+ **/
+
+public class Box implements Thing {
+    
+    List <Thing> box = new ArrayList <Thing>();
+    
+    private int maximumCapacity;
+    
+     public Box(int maximumCapacity){
+         
+         this.maximumCapacity=maximumCapacity;
+         
+     }
+
+     public boolean addThing(Thing thing){
+         
+         if(getVolume()+thing.getVolume()<=this.maximumCapacity){
+             box.add(thing);
+             return true;
+         }
+         else
+             return false;
+         
+     }
+     
+     public int getVolume(){
+         
+         int res = 0;
+         
+         for (Thing t : box){
+             res=res+t.getVolume();
+         }
+         
+         return res;
+     }
+     
+     public String toString(){
+         return getVolume()+" size"+box.size();
+     }
+     
+}
+
+/// CLASS Item
+
+package moving.domain;
+
+public class Item implements Thing, Comparable<Item>{
+    
+    String name;
+    int volume;
+    
+    public Item(String name, int volume) {
+        this.name=name;
+        this.volume=volume;
+    }
+    
+    public int getVolume(){
+        return this.volume;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+    
+    public String toString(){
+        return this.name+" ("+this.volume+" dm^3)";
+    }
+    
+    public int compareTo(Item item){
+    if(this.volume == item.getVolume()){
+        return 0;
+    }else if(this.volume>item.getVolume()){
+        return 1;
+    }else{
+        return -1;
+    }
+}
+    
+}
+
+/// CLASS Thing
+
+package moving.domain;
+
+public interface Thing {
+    
+    int getVolume();
+    
+}
+
+//// PACKAGE moving.logic
+/// CLASS Packer
+
+package moving.logic;
+
+import java.util.ArrayList;
+import java.util.List;
+import moving.domain.Box;
+import moving.domain.Thing;
+
+/**
+ *
+ * @author vivianamarquez
+ *
+ **/
+
+public class Packer {
+
+    private int boxesVolume;
+    
+    public Packer(int boxesVolume){
+        this.boxesVolume=boxesVolume;
+    }
+    
+    public List<Box> packThings(List<Thing> things){
+       
+        List <Box> boxes = new ArrayList<Box>();
+        
+        Box b = new Box(boxesVolume);
+        
+        for (Thing t : things){
+            
+            if(b.addThing(t)==true){
+               //b.addThing(t);
+            }else{
+                boxes.add(b);
+                b= new Box(boxesVolume);
+                b.addThing(t);
+            }
+            
+            
+        }
+        
+        boxes.add(b);
+        
+        return boxes;
+        
+    }
+    
+}
