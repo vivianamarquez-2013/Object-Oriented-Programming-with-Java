@@ -1,0 +1,343 @@
+/*
+Excersice 15: Sorting Cards.
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-8?noredirect=1#e15
+*/
+
+/// MAIN
+
+package pkg042415_sortingcards;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ *
+ * @author vivianamarquez
+ */
+public class Main {
+
+    public static void main(String[] args) {
+
+        /*
+         Card first = new Card(2, Card.DIAMONDS);
+         Card second = new Card(14, Card.CLUBS);
+         Card third = new Card(12, Card.HEARTS);
+         Card fourth = new Card(14, Card.HEARTS);
+
+         System.out.println(first);
+         System.out.println(second);
+         System.out.println(third);
+         System.out.println(fourth);
+
+         System.out.println("");
+        
+         List <Card> cards = new ArrayList<Card>();
+        
+         cards.add(first);
+         cards.add(second);
+         cards.add(third);
+         cards.add(fourth);
+         //cards.add(second); //POR QUÉ???
+        
+         System.out.println(cards);
+         Collections.sort(cards);
+         System.out.println(cards);
+         */
+        //15.2
+        /*
+         Hand hand = new Hand();
+
+         hand.add(new Card(2, Card.SPADES));
+         hand.add(new Card(14, Card.CLUBS));
+         hand.add(new Card(12, Card.HEARTS));
+         hand.add(new Card(2, Card.CLUBS));
+
+         hand.print();
+        
+         hand.sort();
+         hand.print();
+         */
+        //15.3
+        /*
+         Hand hand1 = new Hand();
+
+         hand1.add(new Card(2, Card.SPADES));
+         hand1.add(new Card(14, Card.CLUBS));
+         hand1.add(new Card(12, Card.HEARTS));
+         hand1.add(new Card(2, Card.CLUBS));
+
+         Hand hand2 = new Hand();
+
+         hand2.add(new Card(11, Card.DIAMONDS));
+         hand2.add(new Card(11, Card.CLUBS));
+         hand2.add(new Card(11, Card.HEARTS));
+
+         int comparison = hand1.compareTo(hand2);
+
+         if (comparison < 0) {
+         System.out.println("the most valuable hand contains the cards");
+         hand2.print();
+         } else if (comparison > 0) {
+         System.out.println("the most valuable hand contains the cards");
+         hand1.print();
+         } else {
+         System.out.println("the hands are equally valuable");
+         }
+         */
+        //15.5
+        /*
+         ArrayList<Card> cards = new ArrayList<Card>();
+
+         cards.add(new Card(3, Card.CLUBS));
+         cards.add(new Card(2, Card.DIAMONDS));
+         cards.add(new Card(14, Card.CLUBS));
+         cards.add(new Card(12, Card.HEARTS));
+         cards.add(new Card(2, Card.CLUBS));
+
+         //SortAgainstSuit suitSorter = new SortAgainstSuit();
+         //Collections.sort(cards, suitSorter);
+
+         Collections.sort(cards, new SortAgainstSuit() );
+        
+         for (Card c : cards) {
+         System.out.println(c);
+         }
+         */
+        //15.6
+        Hand hand = new Hand();
+
+        hand.add(new Card(12, Card.HEARTS));
+        hand.add(new Card(4, Card.CLUBS));
+        hand.add(new Card(2, Card.DIAMONDS));
+        hand.add(new Card(14, Card.CLUBS));
+        hand.add(new Card(7, Card.HEARTS));
+        hand.add(new Card(2, Card.CLUBS));
+
+        hand.sortAgainstSuit();
+
+        hand.print();
+
+    }
+
+}
+
+/// CLASS Card
+
+
+
+package pkg042415_sortingcards;
+
+/**
+ *
+ * @author vivianamarquez
+ *
+ **/
+
+public class Card implements Comparable<Card>{
+
+    public static final int SPADES  = 0;
+    public static final int DIAMONDS  = 1;
+    public static final int HEARTS = 2;
+    public static final int CLUBS   = 3;
+    
+    private int value;
+    private int suit;
+    
+    public Card(int value, int suit){
+        this.value=value;
+        this.suit=suit;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public int getSuit() {
+        return suit;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public void setSuit(int suit) {
+        this.suit = suit;
+    }
+
+    public String toString(){
+        
+        String v =""+this.value;
+        String s ="";
+        
+        if(this.value>10){
+            if(this.value==11){
+                v="J";
+            }
+            if(this.value==12){
+                v="Q";
+            }
+            if(this.value==13){
+                v="K";
+            }
+            if(this.value==14){
+                v="A";
+            }
+        }
+        
+        if(this.suit==0){
+            s="Spades";
+        }
+        
+        if(this.suit==1){
+            s="Diamonds";
+        }
+        
+        if(this.suit==2){
+            s="Hearts";
+        }
+        
+        if(this.suit==3){
+            s="Clubs";
+        }
+        
+        return v+" of "+s;
+        
+    }
+
+    public int compareTo(Card card){
+        
+        if(this.value == card.getValue()){
+            if(this.suit==card.getSuit()){
+                return 0;
+            }else if(this.suit>card.getValue()){
+                return 1;
+            }else{
+                return -1;
+            }
+        }else if (this.value > card.getValue()){
+            return 1;
+        }else{
+            return -1;
+        }
+        
+        
+    }
+    
+    
+    
+}
+
+/// CLASS Hand
+
+package pkg042415_sortingcards;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ *
+ * @author vivianamarquez
+ *
+ *
+ */
+public class Hand implements Comparable<Hand> {
+
+    private List<Card> hand = new ArrayList<Card>();
+
+    public void add(Card card) {
+        hand.add(card);
+    }
+
+    public void print() {
+
+        String s = "";
+
+        for (Card c : hand) {
+            s = s + c.toString() + "\n";
+        }
+
+        System.out.println(s);
+    }
+
+    public void sort() {
+
+        Collections.sort(hand);
+
+    }
+
+    public int sum() {
+        int sum = 0;
+
+        for (Card c : hand) {
+            sum = sum + c.getValue();
+        }
+
+        return sum;
+
+    }
+
+    public int compareTo(Hand hand) {
+
+        if (sum() == hand.sum()) {
+            return 0;
+        } else if (sum() > hand.sum()) {
+            return 1;
+        } else {
+            return -1;
+        }
+
+    }
+    
+    public void sortAgainstSuit(){
+        
+        Collections.sort(hand, new SortAgainstSuitAndValue());
+        
+    }
+    
+}
+
+/// CLASS SortingAgainstSuit
+
+package pkg042415_sortingcards;
+
+import java.util.Comparator;
+
+public class SortAgainstSuit implements Comparator<Card> {
+
+    public int compare(Card card1, Card card2) {
+        return card1.getSuit()-card2.getSuit();
+    }
+    
+}
+
+/// CLASS SortingAgainstSuitAndValue
+
+package pkg042415_sortingcards;
+
+import java.util.Comparator;
+
+public class SortAgainstSuitAndValue implements Comparator<Card> {
+
+    public int compare(Card card1, Card card2) {
+
+        if (card1.getSuit() > card2.getSuit()) {
+            //1
+            return 1;
+        } else if (card1.getSuit() < card2.getSuit()) {
+            return -1;
+        } else {
+            if (card1.getValue() > card2.getValue()) {
+                return 1;
+            } else if (card1.getValue() < card2.getValue()) {
+                return -1;
+            } else {
+                return 0;
+            }
+
+        }
+
+    }
+
+}
