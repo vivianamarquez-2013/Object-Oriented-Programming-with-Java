@@ -1,0 +1,94 @@
+/*
+Excersice 17: First Packages.
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-9?noredirect=1#e17
+*/
+
+//// PACKAGE mooc
+/// MAIN
+
+package mooc;
+//We create the functionality of our application inside this package
+
+import mooc.logic.ApplicationLogic;
+import mooc.ui.TextUserInterface;
+import mooc.ui.UserInterface;
+
+
+/**
+ *
+ * @author vivianamarquez
+ */
+public class Main {
+
+    public static void main(String[] args) {
+        
+        UserInterface ui = new TextUserInterface();
+        new ApplicationLogic(ui).execute(3);
+        
+    }
+    
+}
+
+//// PACKAGE mooc.logic
+/// CLASS ApplicationLogic
+
+package mooc.logic;
+
+import mooc.ui.UserInterface;
+
+public class ApplicationLogic {
+    
+    UserInterface ui ;
+    
+    public ApplicationLogic(UserInterface ui){
+        this.ui=ui;
+    }
+    
+    public void execute(int howManyTimes){
+        
+        for (int i = 0; i < howManyTimes; i++) {
+            System.out.println("The application logic works");
+            ui.update();
+        }
+        
+    }
+    
+    
+}
+
+//// PACKAGE mooc.ui
+
+/// CLASS TextUserInterface
+
+package mooc.ui;
+
+/**
+ *
+ * @author vivmarquez
+ * 
+ */
+
+public class TextUserInterface implements UserInterface {
+    
+    
+    public void update(){
+        System.out.println("Updating the user interface");
+    }
+            
+}
+
+/// INTERFACE UserInterface
+
+package mooc.ui;
+
+/**
+ *
+ * @author vivmarquez
+ * 
+ */
+
+public interface UserInterface {
+    
+    void update();
+    
+}
