@@ -1,0 +1,143 @@
+/*
+Excersice 21: Printer
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-9?noredirect=1#e21
+*/
+
+/// CLASS Main
+
+package pkg050415_printer;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        try {
+
+            Printer printer = new Printer("src/textfile.txt");
+
+            printer.printLinesWhichContain("always");
+            System.out.println("-----");
+            printer.printLinesWhichContain("hola");
+            System.out.println("-----");
+            printer.printLinesWhichContain("");
+            System.out.println("-----");
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Unable to open file.");
+        } catch (IOException e) {//Cómo cierro el archivo en caso de que entre a la excepción?
+            System.err.println("Error reading file.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+}
+
+/// CLASS Printer
+
+package pkg050415_printer;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class Printer {
+
+    private String fileName;
+    private FileReader fileReader;
+    private BufferedReader bufferedReader;
+
+    //Se podría dejar aquí sin el throws? 
+    public Printer(String fileName) throws Exception {
+
+        this.fileName = fileName;
+        this.fileReader = new FileReader(this.fileName);
+        this.bufferedReader = new BufferedReader(fileReader);
+
+    }
+
+    //Me pidió throws aquí también
+    public void printLinesWhichContain(String word) throws Exception {
+
+        this.fileReader = new FileReader(this.fileName);
+        this.bufferedReader = new BufferedReader(this.fileReader);
+        
+        String auxiliar="";
+
+        if (word.equals("")==true) {
+            while ((auxiliar = bufferedReader.readLine()) != null) {
+                System.out.println(auxiliar);
+            }
+         
+        } else {
+            while ((auxiliar = bufferedReader.readLine()) != null) {
+                if (auxiliar.contains(word)) {
+                    System.out.println(auxiliar);
+                }
+            }
+           
+        }
+        
+        this.bufferedReader.close();
+        this.fileReader.close();        
+
+    }
+
+}
+
+/// textfile.txt file that goes into the src folder
+
+Life-
+imitates nature,
+always moving, traveling continuously.
+Falling leaves placed delicately;
+foliage touching the echoing waters,
+clarity removed -
+Reflections distorted through waves rippling;
+gracefully dancing
+mirrored images
+- reflect -
+images mirrored.
+Dancing gracefully,
+rippling waves through distorted reflections -
+removed clarity.
+Waters echoing the touching foliage;
+delicately placed leaves falling -
+continuously traveling, moving always,
+nature imitates
+life.
+
+/// OUTPUT should be: 
+
+run:
+always moving, traveling continuously.
+continuously traveling, moving always,
+-----
+-----
+Life-
+imitates nature,
+always moving, traveling continuously.
+Falling leaves placed delicately;
+foliage touching the echoing waters,
+clarity removed -
+Reflections distorted through waves rippling;
+gracefully dancing
+mirrored images
+- reflect -
+images mirrored.
+Dancing gracefully,
+rippling waves through distorted reflections -
+removed clarity.
+Waters echoing the touching foliage;
+delicately placed leaves falling -
+continuously traveling, moving always,
+nature imitates
+life.
+-----
+BUILD SUCCESSFUL (total time: 0 seconds)
+
+
