@@ -1,0 +1,180 @@
+/*
+Excersice 29: Person and their Heirs
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-10?noredirect=1#e29
+*/
+
+//// PACKAGE Main
+/// CLASS Main
+
+package Main;
+
+import People.Person;
+import People.Student;
+import People.Teacher;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        //29.1
+        
+        /*
+        Person pekka = new Person("Pekka Mikkola", "Korsontie Street 1 03100 Vantaa");
+        Person esko = new Person("Esko Ukkonen", "Mannerheimintie Street 15 00100 Helsinki");
+        System.out.println(pekka);
+        System.out.println(esko);
+                */
+        
+        //29.2
+        
+        /*
+        Student olli = new Student("Olli", "Ida Albergintie Street 1 00400 Helsinki");
+        System.out.println(olli);
+        System.out.println("credits " + olli.getCredits());
+        olli.study();
+        System.out.println("credits "+ olli.getCredits());
+                */
+        
+        //29.3
+        
+        /*
+        Student olli = new Student("Olli", "Ida Albergintie Street 1 00400 Helsinki");
+        System.out.println( olli );
+        olli.study();
+        System.out.println( olli );
+                */
+        
+        //29.4
+        
+        /*
+        Teacher pekka = new Teacher("Pekka Mikkola", "Korsontie Street 1 03100 Vantaa", 1200);
+        Teacher esko = new Teacher("Esko Ukkonen", "Mannerheimintie 15 Street 00100 Helsinki", 5400);
+        System.out.println( pekka );
+        System.out.println( esko );
+
+        Student olli = new Student("Olli", "Ida Albergintie 1 Street 00400 Helsinki");
+        for ( int i=0; i < 25; i++ ) {
+            olli.study();
+        }
+        System.out.println( olli );
+                */
+        
+        //29.5
+        
+        List<Person> people = new ArrayList<Person>();
+        people.add( new Teacher("Pekka Mikkola", "Korsontie Street 1 03100 Vantaa", 1200) );
+        people.add( new Student("Olli", "Ida Albergintie Street 1 00400 Helsinki") );
+
+        printDepartment(people);
+        
+
+    }
+    
+    public static void printDepartment(List<Person> people){
+        
+        for(Person p : people){
+            System.out.println(p.toString());
+        }
+        
+    }
+
+}
+
+//// PACKAGE People
+/// CLASS Person
+
+package People;
+
+/**
+ *
+ * @author vivianamarquez
+ *
+ **/
+
+public class Person {
+    
+    private String name;
+    private String address;
+    
+    public Person(String name, String address){
+    
+        this.name=name;
+        this.address=address;
+                
+    }
+    
+    public String toString(){
+        return this.name+"\n\t"+this.address;
+    }
+
+}
+
+/// CLASS Student
+
+package People;
+
+/**
+ *
+ * @author vivianamarquez
+ *
+ *
+ */
+public class Student extends Person {
+
+    private int credits;
+
+    public Student(String name, String address) {
+
+        super(name, address);
+        this.credits = 0;
+
+    }
+
+    public void study() {
+
+        this.credits++;
+
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public String toString() {
+
+        return super.toString() + "\n\tcredits " + getCredits();
+    }
+
+}
+
+/// CLASS Teacher
+
+package People;
+
+/**
+ *
+ * @author vivianamarquez
+ *
+ **/
+
+public class Teacher extends Person {
+
+    private int salary;
+    
+    public Teacher(String name, String address, int salary){
+        super(name, address);
+        this.salary=salary;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+   
+    
+    public String toString(){
+        return super.toString()+"\n\tsalary "+getSalary()+" euros/month";
+    }
+    
+}
