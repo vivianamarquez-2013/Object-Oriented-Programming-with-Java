@@ -1,0 +1,167 @@
+/*
+Excersice 23: Word Inspection
+Link: http://mooc.cs.helsinki.fi/programming-part2/material/week-9?noredirect=1#e23
+*/
+
+//// PACKAGE Main
+/// CLASS Main
+
+package Main;
+
+import Wordinspection.WordInspection;
+import java.io.File;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        try {
+            File f = new File("src/wordList.txt");
+            WordInspection w = new WordInspection(f);
+            
+            System.out.println("Palindromes: ");
+            for (String s: w.palindromes()) {
+                System.out.println(s);
+            }
+            
+            System.out.println("");
+            
+            System.out.println("All vowels: ");
+            for(String s: w.wordsWhichContainAllVowels()){
+                System.out.println(s);
+            }
+            
+            System.out.println("");
+            
+            System.out.println("Ends with L: ");
+            for(String s: w.wordsEndingInL()){
+                System.out.println(s);
+            }
+            
+            System.out.println("");
+            
+            System.out.println("Contain Z: ");
+            for (String s: w.wordsContainingZ()){
+                System.out.println(s4);
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("Error reading files.");
+
+        }
+
+    }
+    
+ 
+ //// PACKAGE WordInspection
+ /// CLASS WordInspection
+ 
+Package Wordinspection.
+    
+package Wordinspection;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+public class WordInspection {
+
+    private File f;
+
+    public WordInspection(File f) {
+        this.f = f;
+    }
+
+    public int wordCount() throws FileNotFoundException {
+
+        int cont = 0;
+        Scanner reader = new Scanner(f);
+        while (reader.hasNextLine()) {
+            cont++;
+        }
+        return cont;
+    }
+
+public List<String> wordsContainingZ() throws FileNotFoundException {
+
+        List<String> l = new ArrayList<>();
+        String aux = "";
+        Scanner reader = new Scanner(f);
+
+        while (reader.hasNextLine()) {
+            aux = reader.nextLine();
+            if (aux.contains("z")) {
+                l.add(aux);
+            }
+        }
+        return l;
+    }
+
+public List<String> wordsEndingInL() throws FileNotFoundException {
+
+        List<String> l = new ArrayList<>();
+        String aux = "";
+        Scanner reader = new Scanner(f);
+
+        while (reader.hasNextLine()) {
+
+            aux = reader.nextLine();
+            if (aux.endsWith("l")) {
+                l.add(aux);
+            }
+        }
+        return l;
+    }
+    
+public List<String> palindromes() throws FileNotFoundException{
+        
+     List<String> l = new ArrayList<>();
+        String aux = "";
+        Scanner reader = new Scanner(f);
+
+        while (reader.hasNextLine()) {
+            aux = reader.nextLine();
+            String reverse =new StringBuffer(aux).reverse().toString(); 
+            if (aux.equalsIgnoreCase(reverse)) {
+                l.add(aux);
+            }
+        }
+        return l;
+    }
+    
+public List<String> wordsWhichContainAllVowels() throws FileNotFoundException{
+         
+        List<String> l = new ArrayList<>();
+        String aux = "";
+        Scanner reader = new Scanner(f);
+
+        while (reader.hasNextLine()) {
+
+            aux = reader.nextLine();
+            if (aux.matches("[a]+[e]+[i]+[o]+[u]+")) {
+                l.add(aux);
+            }
+        }
+        return l;
+     }
+}
+
+//// Text File
+///wordList.txt
+
+  palindrome
+  casa
+  sapo
+  burro
+  tacocat
+  asa
+  canción
+  zapato 
+  canibal
+  cazador
+  yöhäiselokuva
+  ympäristönsuojelija
